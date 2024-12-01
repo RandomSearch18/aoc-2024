@@ -17,7 +17,7 @@ def find_smallest(numbers: list[Union[int, None]]) -> int:
     return smallest_index
 
 
-def solve(input_rows: list[tuple[int, int]]) -> int:
+def calculate_distances(input_rows: list[tuple[int, int]]) -> int:
     total_distance = 0
 
     left_numbers: list[Union[int, None]] = [row[0] for row in input_rows]
@@ -39,6 +39,12 @@ def solve(input_rows: list[tuple[int, int]]) -> int:
     return total_distance
 
 
+def calculate_similarity_scores(input_rows: list[tuple[int, int]]) -> int:
+    total_similarity_score = 0
+    left_numbers: list[Union[int, None]] = [row[0] for row in input_rows]
+    right_numbers: list[Union[int, None]] = [row[1] for row in input_rows]
+
+
 with open("1/input.txt", "r") as file:
     data = file.read().strip()
     input_rows = []
@@ -46,4 +52,4 @@ with open("1/input.txt", "r") as file:
         numbers = line.split("   ")
         input_rows.append((int(numbers[0]), int(numbers[1])))
     # print(input_rows)
-    print(solve(input_rows))
+    # print(calculate_total_distance(input_rows))
