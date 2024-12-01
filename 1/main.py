@@ -3,7 +3,7 @@ from typing import Sequence, Union
 
 def find_smallest(numbers: list[Union[int, None]]) -> int:
     smallest_index = -1
-    for current in range(1, len(numbers)):
+    for current in range(len(numbers)):
         if numbers[current] is None:
             # Ignore any values that are None
             continue
@@ -24,7 +24,7 @@ def solve(input_rows: list[tuple[int, int]]) -> int:
     right_numbers: list[Union[int, None]] = [row[1] for row in input_rows]
 
     count = 0
-    while count < len(left_numbers) - 1:
+    while count < len(left_numbers):
         smallest_left = find_smallest(left_numbers)
         smallest_right = find_smallest(right_numbers)
         distance = abs(left_numbers[smallest_left] - right_numbers[smallest_right])  # type: ignore
