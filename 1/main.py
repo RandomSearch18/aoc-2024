@@ -41,8 +41,15 @@ def calculate_distances(input_rows: list[tuple[int, int]]) -> int:
 
 def calculate_similarity_scores(input_rows: list[tuple[int, int]]) -> int:
     total_similarity_score = 0
-    left_numbers: list[Union[int, None]] = [row[0] for row in input_rows]
-    right_numbers: list[Union[int, None]] = [row[1] for row in input_rows]
+    left_numbers = [row[0] for row in input_rows]
+    right_numbers = [row[1] for row in input_rows]
+
+    for left_number in left_numbers:
+        occurrences = right_numbers.count(left_number)
+        similarity_score = left_number * occurrences
+        total_similarity_score += similarity_score
+
+    return total_similarity_score
 
 
 with open("1/input.txt", "r") as file:
@@ -53,3 +60,4 @@ with open("1/input.txt", "r") as file:
         input_rows.append((int(numbers[0]), int(numbers[1])))
     # print(input_rows)
     # print(calculate_total_distance(input_rows))
+    print(calculate_similarity_scores(input_rows))
