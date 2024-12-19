@@ -44,7 +44,7 @@ def find_word_from_pos(
         to_check = (y + dy, x + dx)
         if is_in_bounds(grid, to_check):
             return find_word_from_pos(
-                grid, word[1:], to_check, direction, visited.extend([start])
+                grid, word[1:], to_check, direction, visited + [start]
             )
 
     return None
