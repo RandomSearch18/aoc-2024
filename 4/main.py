@@ -50,7 +50,9 @@ def find_word_from_pos(
     return None
 
 
-def find_xmases(grid: list[list[str]]) -> int:
+def find_words(
+    grid: list[list[str]], word: str, directions: list[Direction]
+) -> list[Match]:
     height = len(grid)
     width = len(grid[0])
     found: list[Match] = []
@@ -62,21 +64,39 @@ def find_xmases(grid: list[list[str]]) -> int:
                 and match.direction == existing_match.direction
             ):
                 return True
+            if len(word) == 1 and match.start == existing_match.start:
+                # Spacial case for when we're looking for a single letter, otherwise it'll return a dupe for every direction
+                return True
         return False
 
     for y in range(height):
         for x in range(width):
-            for direction in Direction:
-                match = find_word_from_pos(grid, "XMAS", (y, x), direction)
+            for direction in directions:
+                match = find_word_from_pos(grid, word, (y, x), direction)
                 if match:
                     # Check for duplicates
                     if not is_already_found(match):
                         found.append(match)
 
-    return len(found)
+    return found
+
+
+def find_xmases(grid: list[list[str]]) -> int:
+    matches = find_words(
+        grid,
+        "XMAS",
+        list(Direction),
+    )
+    return len(matches)
+
+
+def find_x_mases(grid: list[list[str]]) -> int:
+    xes = find_words(grid, "X", list(Direction))
+    print([match.coordinates for match in xes])
 
 
 with open("4/input.txt", "r") as file:
     data = file.read().strip()
     grid = [list(row) for row in data.split("\n")]
-    print(find_xmases(grid))
+    # print(find_xmases(grid))
+    print(find_x_mases(grid))
