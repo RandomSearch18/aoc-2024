@@ -59,5 +59,5 @@ with open("1/input.txt", "r") as file:
         numbers = line.split("   ")
         input_rows.append((int(numbers[0]), int(numbers[1])))
     # print(input_rows)
-    # print(calculate_total_distance(input_rows))
+    print(calculate_distances(input_rows))
     print(calculate_similarity_scores(input_rows))
