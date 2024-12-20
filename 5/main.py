@@ -33,6 +33,10 @@ def update_is_correct(rules, update):
     return True
 
 
+# def compare_pages(rules, page_a, page_b):
+
+
+
 with open("5/input.txt", "r") as file:
     file_raw = file.read().strip()
     rules_raw, updates_raw = file_raw.split("\n\n")
@@ -54,3 +58,6 @@ with open("5/input.txt", "r") as file:
         else:
             incorrect_updates.append(update)
     print(sum_of_middle_page_numbers)
+
+    for update in incorrect_updates:
+
