@@ -1,4 +1,5 @@
 from enum import Enum
+from turtle import down
 
 
 class Direction(Enum):
@@ -90,9 +91,46 @@ def find_xmases(grid: list[list[str]]) -> int:
     return len(matches)
 
 
+def is_x_mas(grid: list[list[str]], start: tuple[int, int]) -> bool:
+    # x, y = start
+    y, x = start  # not scuffed at all (!)
+    if not is_in_bounds(grid, (y + 1, x + 1)):
+        return False
+    if not is_in_bounds(grid, (y - 1, x - 1)):
+        return False
+    up_left = grid[y - 1][x - 1]
+    up_right = grid[y - 1][x + 1]
+    down_left = grid[y + 1][x - 1]
+    down_right = grid[y + 1][x + 1]
+    # Check top-left and top-right, and see if their diagonals are the opposite letter
+    if up_left == "M":
+        return down_right == "S"
+    if up_left == "S":
+        return down_right == "M"
+    if up_right == "M":
+        return down_left == "S"
+    if up_right == "S":
+        return down_left == "M"
+    return False
+
+
 def find_x_mases(grid: list[list[str]]) -> int:
-    xes = find_words(grid, "X", list(Direction))
-    print([match.coordinates for match in xes])
+    x_mases = []
+
+    def is_already_found(coords: tuple[int, int]) -> bool:
+        for existing in x_mases:
+            if coords == existing:
+                return True
+        return False
+
+    found_a = find_words(grid, "A", list(Direction))
+    # print([match.coordinates for match in found_a])
+    for a_coords in found_a[0].coordinates:  # ???
+        if is_x_mas(grid, a_coords):
+            if not is_already_found(a_coords):
+                x_mases.append(a_coords)
+    print(x_mases)
+    return len(x_mases)
 
 
 with open("4/input.txt", "r") as file:
