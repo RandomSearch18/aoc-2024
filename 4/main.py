@@ -102,16 +102,13 @@ def is_x_mas(grid: list[list[str]], start: tuple[int, int]) -> bool:
     up_right = grid[y - 1][x + 1]
     down_left = grid[y + 1][x - 1]
     down_right = grid[y + 1][x + 1]
-    # Check top-left and top-right, and see if their diagonals are the opposite letter
-    if up_left == "M":
-        return down_right == "S"
-    if up_left == "S":
-        return down_right == "M"
-    if up_right == "M":
-        return down_left == "S"
-    if up_right == "S":
-        return down_left == "M"
-    return False
+    diagonal_1 = (up_left == "M" and down_right == "S") or (
+        up_left == "S" and down_right == "M"
+    )
+    diagonal_2 = (up_right == "M" and down_left == "S") or (
+        up_right == "S" and down_left == "M"
+    )
+    return diagonal_1 and diagonal_2
 
 
 def find_x_mases(grid: list[list[str]]) -> int:
