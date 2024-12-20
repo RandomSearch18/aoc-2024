@@ -22,13 +22,13 @@ def update_is_correct(rules, update):
             if before in update:
                 # Check if the page comes before the current item
                 if not before in update[:i]:
-                    print(f"{before} does not come before {page} in {update}")
+                    # print(f"{before} does not come before {page} in {update}")
                     return False
         for after in find_pages_that_should_be_after(rules, page):
             if after in update:
                 # Check if the page comes after the current item
                 if not after in update[i:]:
-                    print(f"{after} does not come after {page} in {update}")
+                    # print(f"{after} does not come after {page} in {update}")
                     return False
     return True
 
@@ -45,5 +45,12 @@ with open("5/input.txt", "r") as file:
     ]
 
     # print(rules, updates)
+    sum_of_middle_page_numbers = 0
+    incorrect_updates = []
     for update in updates:
-        print(update, update_is_correct(rules, update))
+        # print(update, update_is_correct(rules, update))
+        if update_is_correct(rules, update):
+            sum_of_middle_page_numbers += update[len(update) // 2]
+        else:
+            incorrect_updates.append(update)
+    print(sum_of_middle_page_numbers)
