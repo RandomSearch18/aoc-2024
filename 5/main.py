@@ -30,6 +30,7 @@ def update_is_correct(rules, update):
                 if not after in page[i:]:
                     print(f"{after} does not come after {page} in {update}")
                     return False
+    return True
 
 
 with open("5/input.txt", "r") as file:
@@ -41,4 +42,4 @@ with open("5/input.txt", "r") as file:
     ]
 
     # print(rules, updates)
-    print(update_is_correct(rules, updates[0]))
+    print(update_is_correct(rules, updates[3]))
